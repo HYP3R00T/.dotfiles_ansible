@@ -1,0 +1,17 @@
+- name: Install git
+  apt: name=git state=present
+  become: yes
+  become_user: root
+  become_method: sudo
+
+- name: Configure Git username
+  become: yes
+  ansible.builtin.command:
+    cmd: git config --global user.name "hyperoot"
+    creates: ~/.gitconfig
+
+- name: Configure Git email
+  become: yes
+  ansible.builtin.command:
+    cmd: git config --global user.email "rajesh@hyperoot.dev"
+    creates: ~/.gitconfig

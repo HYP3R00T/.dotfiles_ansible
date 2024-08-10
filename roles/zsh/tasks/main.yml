@@ -1,0 +1,30 @@
+- name: Install zsh
+  ansible.builtin.apt: 
+    name: zsh
+    state: present
+  become: yes
+  become_user: root
+  become_method: sudo
+
+- name: Set Zsh as default shell for the user
+  become: yes
+  ansible.builtin.user:
+    name: "{{ ansible_user }}"   # Replace with the specific username if needed
+    shell: /bin/zsh
+
+- name: Copy .zshrc file to home directory
+  ansible.builtin.copy:
+    src: .zshrc
+    dest: "{{ ansible_env.HOME }}/.zshrc"
+
+- name: Install zsh-autosuggestions plugin
+  ansible.builtin.git:
+    repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
+    dest: '{{ ansible_env.HOME }}/.zsh/zsh-autosuggestions'
+    update: yes
+
+- name: Install zsh-syntax-highlighting plugin
+  ansible.builtin.git:
+    repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
+    dest: '{{ ansible_env.HOME }}/.zsh/zsh-syntax-highlighting'
+    update: yes

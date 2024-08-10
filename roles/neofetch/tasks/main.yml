@@ -1,0 +1,13 @@
+- name:  Install neofetch
+  ansible.builtin.apt:
+    name:
+      - neofetch
+    state: present
+  become: yes
+  become_user: root
+  become_method: sudo
+
+- name: Copy config.conf to .config/neofetch/config.conf
+  ansible.builtin.copy:
+    src: config.conf
+    dest: "{{ansible_env.HOME}}/.config/neofetch/config.conf"

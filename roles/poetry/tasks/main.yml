@@ -1,0 +1,8 @@
+- name: Install poetry
+  become: yes
+  become_user: root
+  become_method: sudo
+  ansible.builtin.shell:
+    "curl -sSL https://install.python-poetry.org | python3 -"
+  args:
+    creates: ~/.local/bin/poetry

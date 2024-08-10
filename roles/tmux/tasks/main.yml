@@ -1,0 +1,14 @@
+- name: Install tmux
+  ansible.builtin.apt:
+    name:
+      - tmux
+    state: present
+  become: yes
+  become_user: root
+  become_method: sudo
+
+- name: Copy .tmux.conf to home directory
+  ansible.builtin.copy:
+    src: .tmux.conf
+    dest: "{{ansible_env.HOME}}/.tmux.conf"
+  
